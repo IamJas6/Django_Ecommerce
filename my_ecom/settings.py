@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-+6=stfqow86eh%-dl%rshs9um_2#0@b5aqjy2vu1(7oazz@^x8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = ['jasclothing-production.up.railway.app', 'https://jasclothing-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://jasclothing-production.up.railway.app']
 
 
 # Application definition
