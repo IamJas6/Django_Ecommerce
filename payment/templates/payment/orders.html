@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Orders</h1>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+                <div class="col-md-8 offset-md-2"><br/><br/>
+                    <div class="card col-8 offset-md-2">
+                        <div class="card-header">
+                          <strong>Order {{order.id}}</strong></strong>
+                        </div>
+                        <div class="card-body">
+                            <b>Email : </b>{{order.email}}<br/>
+
+                            {% if order.date_shipped %}
+                                <b>Shipped Date : </b>{{order.date_shipped}}<br/><br/>
+                            {% else %}
+                                <b>Ordered Date : </b>{{order.date_ordered}}<br/><br/>
+                            {% endif %}
+
+                            <b>Full Name : </b>{{order.full_name}}<br/>
+                            <b>Shipping Address : </b>{{order.shipping_address}}<br/><br/>
+                            <hr>
+                            <strong align="center">Items</b></strong><hr>
+                            {% for item in items %}
+                                <b>Product : </b>{{item.product}}<br/>
+                                <b>Quantity : </b>{{item.quantity}}<br/>
+                                <b>Price : </b>Rs.{{item.price}} /-<br/><br/>
+                            {% endfor %}
+                            
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <strong>Total - Rs.{{order.amount_paid}} /-</strong>
+                            <div>
+                                {% if not order.shipped %}
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="shipping_status" value="true">
+                                        <button type="submit" class="btn btn-success">Mark Shipped</button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="shipping_status" value="false">
+                                        <button type="submit" class="btn btn-danger">Mark Not Shipped</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+<br/><br/><br/><br/><br/><br/>
+
+
+{% endblock %}

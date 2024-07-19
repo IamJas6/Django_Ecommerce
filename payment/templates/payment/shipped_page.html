@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Shipped Orders</h1>
+        </div>
+    </div>
+</header>
+
+
+    <div class="container">
+        <div class="row">
+          <center>
+                <div class="col-8"><br/><br/>
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                          <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Customer Email</th>
+                            <th scope="col">Shipped Date</th>
+                            <th scope="col">Shipped</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in orders %}
+                          <tr>
+                            <td><a href="{% url 'orders' item.id %}">{{item.id}}</a></td>
+                            <td>Rs.{{item.amount_paid}}/-</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.date_shipped}}</td>
+                            <td>
+                              <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="shipping_status" value="false">
+                                <input type="hidden" name="num" value={{item.id}}>
+                                <button type="submit" class="btn btn-danger btn-sm">Mark Not Shipped</button>
+                            </form>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+              </center>
+        </div>
+    </div>
+
+<br/><br/><br/><br/><br/><br/>
+
+
+{% endblock %}
